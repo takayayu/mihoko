@@ -1,0 +1,63 @@
+const chatBox = document.getElementById("chat-box");
+const questionBox = document.getElementById("question-box");
+
+// 質問と答えのセット（10個）
+const qaList = [
+  { question: "ねー、あやか偉い？", answer: "ふつーー！！" },
+  { question: "一緒にガスト行ぐが？", answer: "行こうよ行こうよー。おっかあガスト大好き。" },
+  { question: "今何やってらの？", answer: "今、テレビっこ見でらよー" },
+  { question: "つとむしってうんこ虫なの？", answer: "つとむしは、つーよーむーし！" },
+  { question: "彼氏に振られたー", answer: "そういうときもあるさあ" },
+  { question: "仕事で嫌なことあったんだけどー", answer: "そういうときはさ、美味しいもの食べればいいんだね。" },
+  { question: "おっかあ、今何食べでらの？", answer: "おっかあ、今エビフライ食べでらよー" },
+  { question: "ガストで何頼むの？", answer: "んー、今日ハンバーグにするべかなあ" },
+  { question: "おっかあゴンタ好き？", answer: "ゴンタ一番好きだな、ゴンタっちゅ！" },
+  { question: "オバマとクリントンで女性はどっち？", answer: "んー、オバマ！！" }
+];
+
+// ランダムに3つ選ぶ
+let remaining = [...qaList];
+let round = 0;
+
+function addMessage(text, side, iconPath) {
+  const div = document.createElement("div");
+  div.className = `message ${side}`;
+
+  const img = document.createElement("img");
+  img.src = iconPath;
+  img.className = "icon";
+
+  const p = document.createElement("p");
+  p.textContent = text;
+
+  div.appendChild(img);
+  div.appendChild(p);
+  chatBox.appendChild(div);
+}
+
+function showQuestionChoices() {
+  questionBox.innerHTML = "";
+  addMessage("さあ、どれにするべ？", "left", "mihoko.png");
+
+  const choices = remaining.sort(() => 0.5 - Math.random()).slice(0, 3);
+
+  choices.forEach(item => {
+    const btn = document.createElement("button");
+    btn.textContent = item.question;
+    btn.onclick = () => {
+      addMessage(item.question, "right", "user.png");
+      addMessage(item.answer, "left", "mihoko.png");
+      remaining = remaining.filter(q => q.question !== item.question);
+      round++;
+      if (round < 3 && remaining.length >= 3) {
+        showQuestionChoices();
+      } else {
+        addMessage("今日は終わり。またお話しよ～よ", "left", "mihoko.png");
+        questionBox.innerHTML = "";
+      }
+    };
+    questionBox.appendChild(btn);
+  });
+}
+
+showQuestionChoices();
