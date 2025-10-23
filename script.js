@@ -19,12 +19,28 @@ const qaList = [
 let remaining = [...qaList];
 let round = 0;
 
+// 効果音の関数
 function playReplySound() {
   const sound = document.getElementById("reply-sound");
   if (sound) {
     sound.currentTime = 0;
     sound.play();
   }
+}
+function playClickSound() {
+  const click = document.getElementById("click-sound");
+  if (click) {
+    click.currentTime = 0;
+    click.play();
+  }
+}
+
+function resetChat() {
+  chatBox.innerHTML = "";
+  questionBox.innerHTML = "";
+  remaining = [...qaList];
+  round = 0;
+  showQuestionChoices();
 }
 
 function addMessage(text, side, iconPath) {
@@ -53,6 +69,7 @@ function showQuestionChoices() {
     const btn = document.createElement("button");
     btn.textContent = item.question;
     btn.onclick = () => {
+      playClickSound();
       addMessage(item.question, "right", "user.png");
 
       // 0.5秒後に返信
@@ -69,6 +86,12 @@ function showQuestionChoices() {
             addMessage("今日は終わり。またお話しよ～よ", "left", "mihoko.png");
             playReplySound();
             questionBox.innerHTML = "";
+            // リセットボタンを追加
+            const resetBtn = document.createElement("button");
+            resetBtn.textContent = "もう一回話す";
+            resetBtn.className = "reset-button";
+            resetBtn.onclick = resetChat;
+            questionBox.appendChild(resetBtn);
           }, 1000);
         }
       }, 1000);

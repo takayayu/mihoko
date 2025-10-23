@@ -81,3 +81,13 @@ button {
 button:hover {
   background: #009900;
 }
+
+/* リセットボタン専用スタイル */
+.reset-button {
+  background: #ff9800; /* オレンジ系 */
+  color: white;
+}
+
+.reset-button:hover {
+  background: #e67e00;
+}
