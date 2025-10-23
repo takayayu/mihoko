@@ -81,3 +81,27 @@ button {
 button:hover {
   background: #009900;
 }
+
+/* モバイル最適化（画面幅600px以下） */
+@media (max-width: 600px) {
+  .chat-header,
+  .chat-container {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .message p {
+    font-size: 14px;
+    max-width: 90%;
+  }
+
+  .icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  button {
+    font-size: 18px;
+    padding: 14px;
+  }
+}
