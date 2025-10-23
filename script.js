@@ -1,21 +1,22 @@
+const startBox = document.getElementById("start-box");
+const startButton = document.getElementById("start-button");
 const chatBox = document.getElementById("chat-box");
 const questionBox = document.getElementById("question-box");
 
 // 質問と答えのセット（10個）
 const qaList = [
   { question: "ねー、あやか偉い？", answer: "ふつーー！！" },
-  { question: "一緒にガスト行ぐが？", answer: "行こうよ行こうよー。おっかあガスト大好き。" },
+  { question: "一緒にガスト行ぐが？", answer: "行こうよ行こうよー。おっかあガストだーい好き。" },
   { question: "今何やってらの？", answer: "今、テレビっこ見でらよー" },
   { question: "つとむしってうんこ虫なの？", answer: "つとむしは、つーよーむーし！" },
-  { question: "彼氏に振られたー", answer: "そういうときもあるさあ" },
+  { question: "彼氏に振られたー", answer: "まあ、そういうときもあるさあ" },
   { question: "仕事で嫌なことあったんだけどー", answer: "そういうときはさ、美味しいもの食べればいいんだね。" },
   { question: "おっかあ、今何食べでらの？", answer: "おっかあ、今エビフライ食べでらよー" },
   { question: "ガストで何頼むの？", answer: "んー、今日ハンバーグにするべかなあ" },
   { question: "おっかあゴンタ好き？", answer: "ゴンタ一番好きだな、ゴンタっちゅ！" },
-  { question: "オバマとクリントンで女性はどっち？", answer: "んー、オバマ！！" }
+  { question: "オバマとクリントンで女性はどっち？", answer: "う～ん、オバマ！！" }
 ];
 
-// ランダムに3つ選ぶ
 let remaining = [...qaList];
 let round = 0;
 
@@ -40,7 +41,7 @@ function resetChat() {
   questionBox.innerHTML = "";
   remaining = [...qaList];
   round = 0;
-  showQuestionChoices();
+  startBox.style.display = "block";
 }
 
 function addMessage(text, side, iconPath) {
@@ -58,6 +59,12 @@ function addMessage(text, side, iconPath) {
   div.appendChild(p);
   chatBox.appendChild(div);
 }
+
+startButton.onclick = () => {
+  playClickSound();
+  startBox.style.display = "none";
+  showQuestionChoices();
+};
 
 function showQuestionChoices() {
   questionBox.innerHTML = "";
@@ -99,5 +106,3 @@ function showQuestionChoices() {
     questionBox.appendChild(btn);
   });
 }
-
-showQuestionChoices();
