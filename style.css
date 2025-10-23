@@ -11,7 +11,7 @@ body {
   padding: 15px;
   box-sizing: border-box;
   background: #ffffff;
-  border-radius: 0;
+  border-radius: 20px;
   box-shadow: none;
   text-align: center;
 }
@@ -23,7 +23,7 @@ body {
   padding: 20px;
   box-sizing: border-box;
   background: #ffffff;
-  border-radius: 0;
+  border-radius: 20px;
   box-shadow: none;
 }
 
@@ -42,8 +42,8 @@ body {
 }
 
 .icon {
-  width: 40px;
-  height: 40px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   margin: 0 10px;
 }

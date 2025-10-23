@@ -19,6 +19,14 @@ const qaList = [
 let remaining = [...qaList];
 let round = 0;
 
+function playReplySound() {
+  const sound = document.getElementById("reply-sound");
+  if (sound) {
+    sound.currentTime = 0;
+    sound.play();
+  }
+}
+
 function addMessage(text, side, iconPath) {
   const div = document.createElement("div");
   div.className = `message ${side}`;
@@ -46,15 +54,24 @@ function showQuestionChoices() {
     btn.textContent = item.question;
     btn.onclick = () => {
       addMessage(item.question, "right", "user.png");
-      addMessage(item.answer, "left", "mihoko.png");
-      remaining = remaining.filter(q => q.question !== item.question);
-      round++;
-      if (round < 3 && remaining.length >= 3) {
-        showQuestionChoices();
-      } else {
-        addMessage("今日は終わり。またお話しよ～よ", "left", "mihoko.png");
-        questionBox.innerHTML = "";
-      }
+
+      // 0.5秒後に返信
+      setTimeout(() => {
+        addMessage(item.answer, "left", "mihoko.png");
+        playReplySound(); 
+        remaining = remaining.filter(q => q.question !== item.question);
+        round++;
+
+        if (round < 3 && remaining.length >= 3) {
+          showQuestionChoices();
+        } else {
+          setTimeout(() => {
+            addMessage("今日は終わり。またお話しよ～よ", "left", "mihoko.png");
+            playReplySound();
+            questionBox.innerHTML = "";
+          }, 1000);
+        }
+      }, 1000);
     };
     questionBox.appendChild(btn);
   });
